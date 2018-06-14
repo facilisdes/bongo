@@ -5,9 +5,9 @@ import six
 
 def GetScores(keywords, lemmas, lemmasList, text, texts):
     words = __generateFullKeywords(keywords, lemmas)
-    textsLen = len(lemmasList)
-    tfidfScore = __tf_idf(words, lemmasList, texts)
-    rtfScore = __rtf(words, text, textsLen)
+    textsLen = sum([len(ll) for ll in lemmasList])
+    tfidfScore = __tf_idf(words, lemmasList)
+    rtfScore = __rtf(words, lemmas, textsLen)
     enthropyScore = __e(rtfScore)
 
     tfidfScore = sorted(six.iteritems(tfidfScore), key=operator.itemgetter(1), reverse=True)
@@ -32,7 +32,7 @@ def __generateFullKeywords(keywords, lemmas):
     words.update(keywords)
     return words
 
-def __tf_idf(keywords, lemmasList, texts):
+def __tf_idf(keywords, lemmasList):
     textsLengths = []
     textsLength = 0
     result = {}
@@ -45,7 +45,7 @@ def __tf_idf(keywords, lemmasList, texts):
     for keyword in keywords:
         textsResults = []
         keywordOccasions = 0
-        for i, text in enumerate(texts):
+        for i, text in enumerate(lemmasList):
             countInText = text.count(keyword)
             if countInText>0: keywordOccasions = keywordOccasions+1
             textLen = textsLengths[i]

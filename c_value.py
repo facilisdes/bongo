@@ -3,7 +3,7 @@ import constants
 
 def GetScore(analytics, text, maxLengthInWords=constants.C_VALUE_MAX_LENGTH_IN_WORDS):
     keywords = __getKeywords(analytics)
-    scores = __getScore(keywords, text, maxLengthInWords)
+    scores = __getScore(keywords, analytics, maxLengthInWords)
     return scores
 
 def __getScore(keywords, text, maxLengthInWords):
@@ -11,7 +11,16 @@ def __getScore(keywords, text, maxLengthInWords):
     for keyword in keywords:
         wordsCount = len(keyword.split())
         if wordsCount > maxLengthInWords: continue
-        countInText = text.count(keyword)
+
+        keyParts = keyword.split()
+        countInText = 0
+        for i, word in enumerate(text):
+            if i + len(keyParts) > len(text): continue
+            isMatch = True
+            #checking for other parts
+            for j in range(0, len(keyParts)):
+                if text[i+j]['word'] != keyParts[j]: isMatch = False
+            if isMatch: countInText = countInText + 1
         countInKeywords = 0
         countOfEmbedingKeywords = 0
         for altKeyWord in keywords:
@@ -23,11 +32,12 @@ def __getScore(keywords, text, maxLengthInWords):
 
         rating = 0
         if countInKeywords==0:
-            rating = math.log10(wordsCount) * countInText
+            rating = math.log10(1 + wordsCount) * countInText
         else:
-            rating = math.log10(wordsCount) * (countInText - countInKeywords/countOfEmbedingKeywords)
+            rating = math.log10(1 + wordsCount) * (countInText - countInKeywords/countOfEmbedingKeywords)
 
         if rating > 0: rating = math.log10(rating)
+        if rating < 0: rating = 0
         result[keyword] = rating
     return result
 
