@@ -1,7 +1,7 @@
 from pymystem3 import Mystem
 import re
 
-def PrepareText(texts):
+def PrepareTexts(texts):
     # regex = re.compile('[^a-zA-Zа-яА-ЯёЁ0-9\(\)]')
     # First parameter is the replacement, second parameter is your input string
     # regex.sub('', 'ab3d*E')
@@ -18,6 +18,7 @@ def PrepareText(texts):
     originalsForTexts = []
     lemmasForTexts = []
     for text in texts:
+        if len(text) == 0: continue
         analytic = mystem.analyze(text)
 
         original = []
@@ -26,6 +27,7 @@ def PrepareText(texts):
             original.append(el['text'])
             if('analysis' in el and len(el['analysis']) > 0 and 'lex' in el['analysis'][0]):
                 lemma.append(el['analysis'][0]['lex'])
+
             else:
                 lemma.append(el['text'])
 

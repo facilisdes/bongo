@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>270</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lw=2
+bongo
+--
+-args:list
+--
++bongo(text1, text2, ...)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>480</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+text_preparations
+--
+
+--
++PrepareTexts(texts):dict</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+input_reader
+--
+
+--
++ReadFile(file:string)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>270</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+concept_extraction
+--
+
+--
++GetConcepts(textData:dict)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>640</x>
+      <y>20</y>
+      <w>240</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+c_value_worker
+--
+
+--
++GetScores(analytics, lemmatizedText)
+-__prepare(analytics)
+-__sort(result)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>480</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+rake_worker
+--
+
+--
++GetScore(textData:dict)
+-__getScore(textData:dict)
+-__cutoff(arr, percent)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>110</x>
+      <y>120</y>
+      <w>30</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>110</x>
+      <y>370</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>320</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>370</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>210</y>
+      <w>400</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>rake
+--
+
+--
++__init()
++run(textData:dict)
+_-__is_number(s)_
+_-load_stop_words(stop_word_file)_
+_-separate_words(text, min_word_return_size)_
+_-split_sentences(text)_
+_-build_stop_word_regex(stop_word_list)_
+_-extract_adjoined_candidates(sentence_list, stoplist, min_keywords,_
+  max_keywords, min_freq)
+_-adjoined_candidates_from_sentence(s, stoplist, min_keywords, _
+  max_keywords)_
+_-filter_adjoined_candidates(candidates, min_freq)_
+_-generate_candidate_keywords(sentence_list, stopword_pattern,_
+  stop_word_list, min_char_length,max_words_length)
+_-sliding_window(words, length)_
+_-is_acceptable(phrase, min_char_length, max_words_length)_
+_-correct_word_scores(word_scores, max_words_count,_
+  correction_type, correction_func_
+_-calculate_word_scores(phraseList)_
+_-generate_candidate_keyword_scores(phrase_list, word_score, _
+  min_keyword_frequency=1)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>550</y>
+      <w>410</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;390.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>20</y>
+      <w>300</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+c_value
+--
+
+--
++GetScore(analytics, text, maxLengthInWords)
+-__getScore(keywords, text, maxLengthInWords)
+-__getKeywords(analytics)
+-__checkForNNPattern(sequence, index)
+-__checkForANPattern(sequence, index)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>120</y>
+      <w>330</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;120.0;310.0;120.0;310.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>70</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>20</y>
+      <w>330</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+statistics_worker
+--
+
+--
++GetScores(keywords, lemmas, lemmasList, text, texts)
+-__generateFullKeywords(keywords, lemmas)
+-__tf_idf(keywords, lemmasList, texts)
+-__rtf(keywords, text, textsLen)
+-__e(rtfs)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>150</y>
+      <w>30</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>320</y>
+      <w>300</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;static&gt;&gt;
+keyword_calculator
+--
+
+--
++GetHeywords(scores1, ..., scoresN, scoresRatings)
+-__getKeywords(scores, ratings)
+-__transform(tup)
+-__normalize(arr)
+-__reshuffle(arr)
+-__cutoff(arr)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>340</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

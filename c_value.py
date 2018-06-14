@@ -1,5 +1,3 @@
-import operator
-import six
 import math
 import constants
 
@@ -28,8 +26,9 @@ def __getScore(keywords, text, maxLengthInWords):
             rating = math.log10(wordsCount) * countInText
         else:
             rating = math.log10(wordsCount) * (countInText - countInKeywords/countOfEmbedingKeywords)
+
+        if rating > 0: rating = math.log10(rating)
         result[keyword] = rating
-    result = sorted(six.iteritems(result), key=operator.itemgetter(1), reverse=True)
     return result
 
 

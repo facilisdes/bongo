@@ -12,7 +12,7 @@ args = parser.parse_args()
 texts = []
 for file in args.files:
     texts.append(input_reader.readFile('texts/' + file))
-textsData = text_preparations.PrepareText(texts)
+textsData = text_preparations.PrepareTexts(texts)
 concept_extraction.GetConcepts(textsData)
 
 

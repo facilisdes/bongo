@@ -1,6 +1,7 @@
 import rake_worker
 import c_value_worker
 import statistics_worker
+import keyword_calculator
 
 def GetConcepts(textsData):
 
@@ -13,8 +14,12 @@ def GetConcepts(textsData):
     for score in cvalueScores:
         currentKeywords.add(score[0])
 
-    statScores = statistics_worker.GetScores(currentKeywords,
+    tridfScores, rdfScores, enthropyScores = statistics_worker.GetScores(currentKeywords,
                                              textsData['lemmas']['joined'],
                                              textsData['lemmas']['list'],
                                              textsData['lemmatizedTexts']['joined'],
                                              textsData['lemmatizedTexts']['list'])
+
+    keyword_calculator.GetKeywords(rakeScores, cvalueScores, tridfScores, rdfScores, enthropyScores,
+                                   scoresMatrix = [0.3, 1, 0.5, 0.05, 0.01])
+
